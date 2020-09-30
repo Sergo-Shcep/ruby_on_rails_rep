@@ -91,12 +91,10 @@ scroll_to_bottom(browser)
 label_list = ['Paid on', 'Payment Date', 'Description']
 browser.elements(xpath: '//li[@data-semantic="account-item"]').each_with_index do |build, index|
   index < 4 ? (sleep 5; build.wait_until_present.click) : break
-  puts index
   scroll_to_bottom(browser)
   browser.elements(xpath: '//li[@data-semantic="activity-item"]').each do |transaction|
     transaction.wait_until_present.scroll.to #нужно подождать пока появится обьект иначе будет ошибка
     transaction.click
-    puts index
     sleep 2
     header_transaction = Nokogiri::HTML(browser.html).css('span[data-semantic="payment-amount"]')
     properties_transaction = Nokogiri::HTML(browser.html).css('nav[class="uilist"] > div[class="uilist__item"]')
